@@ -1,26 +1,46 @@
-1class Solution:
-2    def sumFourDivisors(self, nums: List[int]) -> int:
-3
-4        def is_prime(x):
-5            if x < 2:
-6                return False
-7            for i in range(2, round(x**0.5) + 1):
-8                if x % i == 0:
-9                    return False
-10            return True
-11        
-12        result = 0
-13        for num in nums:
-14            p = round(num ** (1/3))
-15            if is_prime(p) and num == p ** 3:
-16                result += 1 + p + p**2 + p**3
-17                continue
-18
-19            for p in range(2, int(num ** 0.5) + 1):
-20                if num % p == 0:
-21                    q = num // p
-22                    if p != q and is_prime(p) and is_prime(q):
-23                        result += 1 + p + q + num
-24                        break           
-25        return result
-26        
+class Solution:
+    def sumFourDivisors(self, nums: List[int]) -> int:
+
+        def is_prime(x):
+            if x < 2:
+                return False
+            for i in range(2, round(x**0.5) + 1):
+                if x % i == 0:
+                    return False
+            return True
+        
+        result = 0
+        for num in nums:
+            p = round(num ** (1/3))
+            if is_prime(p) and num == p ** 3:
+                result += 1 + p + p**2 + p**3
+                continue
+
+            for p in range(2, int(num ** 0.5) + 1):
+                if num % p == 0:
+                    q = num // p
+                    if p != q and is_prime(p) and is_prime(q):
+                        result += 1 + p + q + num
+                        break           
+        return result
+
+### Faster Version
+
+class Solution:
+    def sumFourDivisors(self, nums: List[int]) -> int:
+
+        results = 0
+        for num in nums:
+            divisors = set([1, num])
+            for i in range(2, int(num**0.5 + 1)): 
+                if num % i == 0:
+                    divisors.add(i)
+                    divisors.add(num // i)
+
+                if len(divisors) > 4:
+                    break
+
+            if len(divisors) == 4:
+                results += sum(divisors)
+
+        return results        
