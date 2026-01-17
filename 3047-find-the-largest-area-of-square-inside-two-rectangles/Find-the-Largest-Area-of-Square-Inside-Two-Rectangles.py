@@ -33,12 +33,14 @@
 33                sx1, sx2 = max(x1, x3), min(x2, x4)
 34                sy1, sy2 = max(y1, y3), min(y2, y4)
 35
-36                if sx2 < sx1 or sy2 < sy1:
-37                    continue
-38     
-39                current_length = min(sx2-sx1, sy2-sy1)
-40                if current_length > max_length:
-41                    max_length = current_length
-42
-43        return max_length ** 2
+36                if sx2 < sx1:
+37                    break
+38                if sy2 < sy1:
+39                    continue
+40     
+41                current_length = min(sx2-sx1, sy2-sy1)
+42                if current_length > max_length:
+43                    max_length = current_length
 44
+45        return max_length ** 2
+46
