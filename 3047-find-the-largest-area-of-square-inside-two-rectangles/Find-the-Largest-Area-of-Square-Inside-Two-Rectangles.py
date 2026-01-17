@@ -1,7 +1,7 @@
 1class Solution:
 2    def largestSquareArea(self, bottomLeft: List[List[int]], topRight: List[List[int]]) -> int:
 3        
-4        max_area = 0
+4        max_length = 0
 5
 6        squares = [
 7            [
@@ -21,20 +21,24 @@
 21        print(squares)
 22
 23        for i in range(len(squares)):
-24            for j in range(i+1, len(squares)):
-25                x1, x2, y1, y2 = squares[i]
-26                x3, x4, y3, y4 = squares[j]
-27                sx1, sx2 = max(x1, x3), min(x2, x4)
-28                sy1, sy2 = max(y1, y3), min(y2, y4)
-29
-30                if sx2 < sx1 or sy2 < sy1:
+24            x1, x2, y1, y2 = squares[i]
+25            if max(x2-x1, y2-y1) <= max_length:
+26                continue
+27
+28            for j in range(i+1, len(squares)):
+29                x3, x4, y3, y4 = squares[j]
+30                if max(x4-x3, y4-y3) <= max_length:
 31                    continue
-32     
-33                current_length = min(sx2-sx1, sy2-sy1)
-34
-35                shared_area = current_length**2
-36                if shared_area > max_area:
-37                    max_area = shared_area
-38
-39        return max_area
-40
+32
+33                sx1, sx2 = max(x1, x3), min(x2, x4)
+34                sy1, sy2 = max(y1, y3), min(y2, y4)
+35
+36                if sx2 < sx1 or sy2 < sy1:
+37                    continue
+38     
+39                current_length = min(sx2-sx1, sy2-sy1)
+40                if current_length > max_length:
+41                    max_length = current_length
+42
+43        return max_length ** 2
+44
