@@ -22,12 +22,12 @@
 22
 23        for i in range(len(squares)):
 24            x1, x2, y1, y2 = squares[i]
-25            if max(x2-x1, y2-y1) <= max_length:
+25            if min(x2-x1, y2-y1) <= max_length:
 26                continue
 27
 28            for j in range(i+1, len(squares)):
 29                x3, x4, y3, y4 = squares[j]
-30                if max(x4-x3, y4-y3) <= max_length:
+30                if min(x4-x3, y4-y3) <= max_length <= max_length:
 31                    continue
 32
 33                sx1, sx2 = max(x1, x3), min(x2, x4)
