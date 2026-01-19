@@ -7,12 +7,23 @@
 7            for j in range(1, n+1):
 8                prefix[i][j] = prefix[i][j-1] + prefix[i-1][j] - prefix[i-1][j-1] + mat[i-1][j-1]
 9
-10        minLen = min(m, n)
-11        for k in range(minLen, 0, -1):
-12            for i in range(m, k-1, -1):
-13                for j in range(n, k-1, -1):
-14                    gridSum = prefix[i][j] - prefix[i-k][j] - prefix[i][j-k] + prefix[i-k][j-k]
-15                    if gridSum <= threshold:
-16                        return k
+10        # minLen = min(m, n)
+11        # for k in range(minLen, 0, -1):
+12        #     for i in range(m, k-1, -1):
+13        #         for j in range(n, k-1, -1):
+14        #             gridSum = prefix[i][j] - prefix[i-k][j] - prefix[i][j-k] + prefix[i-k][j-k]
+15        #             if gridSum <= threshold:
+16        #                 return k
 17
-18        return 0
+18        result = 0
+19        for i in range(1, m+1):
+20            for j in range(1, n+1):
+21                k = result + 1
+22                
+23                if i >= k and j >= k:
+24                    total = prefix[i][j] - prefix[i-k][j] - prefix[i][j-k] + prefix[i-k][j-k]
+25                    
+26                    if total <= threshold:
+27                        result += 1
+28
+29        return result
