@@ -9,9 +9,8 @@
 9
 10        for i in range(n-k+1):
 11            diff = nums[i+k-1]  - nums[i]
-12            if diff < result:
-13                result = diff
-14
-15        return result
-16
-17            
+12            result = min(result, diff)
+13
+14        return result
+15
+16            
