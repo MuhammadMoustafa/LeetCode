@@ -1,13 +1,19 @@
 1class Solution:
 2    def numSteps(self, s: str) -> int:
-3        steps = 0
-4        num = int(s, 2)
-5        print(num)
-6        while num != 1:
-7            if num % 2 == 0:
-8                num //= 2
-9            else:
-10                num += 1
-11            steps += 1
-12
-13        return steps 
+3        s = list(s)
+4        steps = 0
+5        while s != ['1']:
+6            if s[-1] == '0':
+7                s = s[:-1]
+8            else:
+9                for i in range(len(s)-1, -1, -1):
+10                    if s[i] == '1':
+11                        s[i] = '0'
+12                    else:
+13                        s[i] = '1'
+14                        break
+15                    if i == 0 and s[-1] == '0':
+16                        s = ['1'] + s
+17            steps += 1
+18
+19        return steps 
